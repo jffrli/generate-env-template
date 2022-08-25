@@ -1,7 +1,7 @@
 # generate-env-template
 Generate a basic `env.template` file for [environs](https://pypi.org/project/environs/).
 
-CURRENTLY A WORK IN PROGRESS.
+Untested, but should work.
 
 ## Supported Environs Features
 - default variables 
