@@ -6,12 +6,7 @@ def find_var_name(l):
 
 	var_names = []
 	for match in matches:
-		formatter = ''
-		if (match[1] == r"list"):
-			formatter = "[]"
-		if (match[1] == r"dict"):
-			formatter = r"{}"
-		var_names.append(match[2] + "=" + formatter + "\n")
+		var_names.append(match[2] + "=\n")
 		
 	return var_names
 
