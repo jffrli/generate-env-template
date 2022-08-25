@@ -17,6 +17,8 @@ Note: Any file with the same name in the destination folder will be overwritten.
 - prefixes
   - e.g. `with env.prefixed("x"):`
 
+Note: This program does not support variable arguments.
+
 ### Supported type casts (in case the environs list changes)
 - str
 - bool
