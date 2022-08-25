@@ -5,10 +5,8 @@ Variables will be in the same order as they first appear in the source file.
 ## Usage
 `python3 generate-env-template.py [source].py`
 
-\[Not yet implemented\]. 
-The resulting `env.template` file will be generated in the same directory as the input source file.
-Note: Currently, it is generated in the directory where this program is run.
-
+The resulting `env.template` file will be generated in the same directory as the input source file.  
+Note: Any file with the same name in the destination folder will be overwritten.
 
 ## Supported Environs Features
 - default variables 

@@ -1,4 +1,4 @@
-import sys, re
+import sys, re, os
 
 def find_var_name(l):
 	env_regex = r"env(\.(str|bool|int|float|decimal|list|dict|json|datetime|date|time|timedelta|url|uuid|log_level|path|enum))?\(\"([a-zA-Z0-9_\-]*)\"\)"
@@ -18,6 +18,8 @@ def main():
 	if filename[-3:] != ".py":
 		print("Usage: python3 generate_env_template.py [source].py")
 		return
+
+	path = os.path.split(filename)[0]
 
 	lines = []
 	try:
@@ -64,7 +66,7 @@ def main():
 	unique_envs = [s + "=\n" for s in unique_envs]
 	
 
-	with open("env.template", "w") as f:
+	with open(os.path.join(path,"env.template"), "w") as f:
 		f.writelines(unique_envs)
 
 if __name__ == '__main__':
