@@ -6,7 +6,13 @@ def find_var_name(l):
 
 	var_names = []
 	for match in matches:
-		var_names.append(match[2])
+		formatter = ''
+		if (match[1] == r"list"):
+			formatter = "[]"
+		if (match[1] == r"dict"):
+			formatter = r"{}"
+		var_names.append(match[2] + "=" + formatter + "\n")
+		
 	return var_names
 
 def main():
@@ -62,9 +68,6 @@ def main():
 	#remove duplicates
 	unique_envs = []
 	[unique_envs.append(x) for x in env_variables if x not in unique_envs] #method 2 of https://www.geeksforgeeks.org/python-ways-to-remove-duplicates-from-list/
-
-	unique_envs = [s + "=\n" for s in unique_envs]
-	
 
 	with open(os.path.join(path,"env.template"), "w") as f:
 		f.writelines(unique_envs)
