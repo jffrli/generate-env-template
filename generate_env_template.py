@@ -33,6 +33,7 @@ def main():
 
 	#prefix 
 	prefix_regex = r"^(\s*)with env.prefixed\(\"([a-zA-Z0-9_\-]*)\"\):"
+	var_prefix_regex = r"^(\s*)with env.prefixed\([a-zA-Z0-9_\-]*\):\s*#"
 
 	env_variables = []
 
@@ -40,6 +41,7 @@ def main():
 	while i < len(lines):
 		l = lines[i]
 		prefix_match = re.search(prefix_regex, l)
+
 		if (prefix_match):
 			#print(prefix_match.group(1))
 			#print(prefix_match.group(2))
@@ -55,9 +57,36 @@ def main():
 					env_variables.append(prefix_match.group(2) + var_name)
 				i += 1
 			continue #to avoid incrementing twice
-		else:
-			var_names = find_var_name(l)
-			env_variables.extend(var_names)
+		
+		var_prefix_match = re.search(var_prefix_regex, l)
+
+		if (var_prefix_match):
+			#print(var_prefix_match.group(1))
+			#print(var_prefix_match.group(2))
+
+			indentation = var_prefix_match.group(1)
+
+			env_options = l.split("#")[1].split(",")
+			#print(env_options)
+
+			greater_indent = r"^"+ indentation+r"\s"
+			
+			for env_prefix in env_options:
+
+				j = i+1
+				while (re.search(greater_indent, lines[j])):
+					#print("prefix search: " + lines[i])
+					var_names = find_var_name(lines[j])
+					for var_name in var_names:
+						env_variables.append(env_prefix + var_name)
+					j += 1
+
+			i = j
+			continue #to avoid incrementing twice
+
+
+		var_names = find_var_name(l)
+		env_variables.extend(var_names)
 		i += 1
 
 	#remove duplicates
